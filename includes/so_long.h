@@ -41,6 +41,7 @@ void    init_map_size(t_map_size *mz);
 void    validate_file_name(char *f_name);
 void    print_error(char    *msg);
 void    init_map(char   *f_name, char ***map, t_map_size *mz);
+void    build_map(int fd, char ***map, char **f_line, t_map_size *mz);
 
 #endif
 
