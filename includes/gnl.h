@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: uwettasi <uwettasi@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/07 12:21:37 by uwettasi          #+#    #+#             */
-/*   Updated: 2025/05/07 12:21:41 by uwettasi         ###   ########.fr       */
+/*   Created: 2025/03/05 17:16:46 by uwettasi          #+#    #+#             */
+/*   Updated: 2025/03/11 14:42:26 by uwettasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"so_long.h"
+#ifndef GNL_H 
+# define GNL_H 
 
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
 
-int	main(int	argc, char	**argv)
-{
-	char	*f_name;
-	char	**map;
-	t_map_size	map_size;
+# include <unistd.h>
+# include <stdlib.h>
+# include <fcntl.h>
 
-	if(argc != 2)
-		return (write(2, "Error\n", 6), 1);
-	f_name = argv[1];
-	//init_map_size(&map_size); ?? refactor this function to update map_size based on rows and colounms
-	init_map(f_name, &map, &map_size);
+char	*get_next_line(int fd);
+size_t	ft_strlen(const char *s);
+char	*ft_strchr(const char *s, int c);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	*ft_strjoin(char const *s1, char const *s2);
 
-	
-	return (0);
-}
+#endif
