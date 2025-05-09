@@ -20,6 +20,7 @@ void    build_map(int fd, char ***map, char **f_line, t_map_size *mz)
     int     col_count;
 
     //line_map = ft_strdup("");
+    //*f_line  = get_next_line(fd);
     temp = ft_strdup(*f_line);
     col_count = 0;
     new_line = *f_line;

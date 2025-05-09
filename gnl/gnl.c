@@ -87,8 +87,7 @@ static	char	*process_buffer(char **storage, size_t length, size_t	index)
 				return (free_buffer(storage));
 			if (*storage)
 				free(*storage);
-			*storage = ft_substr(temp, 0, ft_strlen(temp));
-			free(temp);
+			*storage = temp;
 		}
 	}
 	if (!next_line)

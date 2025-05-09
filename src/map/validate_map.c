@@ -34,11 +34,12 @@ void    validate_file_name(char *f_name)
         free(last);            
 }
 
+
 static void    validate_f_line(int fd, char **line)
 {
-
+    //if (!(*line) || !ft_strncmp(*line, "\0", 1) || !ft_strncmp(*line, "\n", 1))
     *line  = get_next_line(fd);
-    if (!(*line) || !ft_strncmp(*line, "\0", 1) || !ft_strncmp(*line, "\n", 1))
+    if (!(*line) )
     {
         if(*line)
             free(*line);
@@ -46,6 +47,7 @@ static void    validate_f_line(int fd, char **line)
         print_error("Empty file or new line at begin");
     }
 }
+    
 
 void    init_map(char   *f_name, char ***map, t_map_size *mz)
 {
