@@ -1,30 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_print_char.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: uwettasi <uwettasi@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/05 17:16:46 by uwettasi          #+#    #+#             */
-/*   Updated: 2025/03/11 14:42:26 by uwettasi         ###   ########.fr       */
+/*   Created: 2025/03/13 17:43:39 by uwettasi          #+#    #+#             */
+/*   Updated: 2025/03/14 22:18:19 by uwettasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H 
-# define GET_NEXT_LINE_H 
+#include "ft_printf.h" 
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
-# endif
-
-# include <unistd.h>
-# include <stdlib.h>
-# include <fcntl.h>
-
-char	*get_next_line(int fd);
-size_t	ft_strlen(const char *s);
-char	*ft_strchr(const char *s, int c);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-char	*ft_strjoin(char const *s1, char const *s2);
-
-#endif
+int	ft_print_char(int c)
+{
+	if (write(1, &c, 1) < 0)
+		return (-1);
+	return (1);
+}
