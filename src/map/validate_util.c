@@ -20,8 +20,8 @@ void    print_error(char    *msg)
     exit(EXIT_FAILURE);
 }
 
-void    init_map_size(t_map_size *mz)
+void    init_map_size(t_map_size *mz, int r, int c)
 {
-    (*mz).rows = 0;
-    (*mz).cols = 0;
+    (*mz).rows = r;
+    (*mz).cols = c;
 }

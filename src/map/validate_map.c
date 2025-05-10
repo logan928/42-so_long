@@ -23,7 +23,6 @@ void    validate_file_name(char *f_name)
     len = (int)ft_strlen(f_name);
     s_len = (int)ft_strlen(ext);
     last = ft_substr(f_name, len-s_len, s_len);
-
     if (!(len > s_len && \
         (!ft_strnstr(f_name, ext, len-s_len)) &&   \
         ft_strncmp(last,ext, s_len) == 0))
@@ -34,8 +33,7 @@ void    validate_file_name(char *f_name)
         free(last);            
 }
 
-
-static void    validate_f_line(int fd, char **line)
+void    validate_f_empty(int fd, char **line)
 {
     //if (!(*line) || !ft_strncmp(*line, "\0", 1) || !ft_strncmp(*line, "\n", 1))
     *line  = get_next_line(fd);
@@ -44,26 +42,23 @@ static void    validate_f_line(int fd, char **line)
         if(*line)
             free(*line);
         close(fd);
-        print_error("Empty file or new line at begin");
+        print_error("Empty file");
     }
 }
-    
 
-void    init_map(char   *f_name, char ***map, t_map_size *mz)
+void    validate_empty_lines(char **map_line)
 {
-    int     fd;
-    char    *line;
-    char    *path;
-    
-    line = NULL;
-    validate_file_name(f_name);
-    path = ft_strjoin("./maps/" , f_name);
-    fd = open( path, O_RDONLY);
-    free(path);
-    if (fd == -1)
-        print_error("Invalid file descriptor");
-    validate_f_line(fd, &line);
-    build_map(fd, map, &line, mz);
-    close(fd);
+    if (*map_line[0] == '\n')
+    {
+        free(*map_line);
+        print_error("New line at the top");
+    }
+    if ((ft_strnstr(*map_line, "\n\n", ft_strlen(*map_line) - 1)))
+    {
+        free(*map_line);
+        print_error("Empty line in map");
+    }
 
 }
+
+

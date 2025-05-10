@@ -12,17 +12,16 @@
 
 #include	"so_long.h"
 
-void print_map(char **map)
+void print_map(char **map, t_map_size mz)
 {
 	int	i;
 	int	j;
 
 	i = 0;
 	j = 0;
-
-	for (i = 0; i < 6; i++)
+	for (i = 0; i < mz.rows; i++)
 	{
-		for (j = 0; j < 13; j++)
+		for (j = 0; j < mz.cols; j++)
 			printf("%c ", map[i][j]);
 		
 		printf("\n");
@@ -31,12 +30,13 @@ void print_map(char **map)
 
 }
 
-void free_map(char **map)
+void free_map(char **map, t_map_size mz)
 {
 	int	i; 
 
 	i = 0;
-	while (i < 6)//update with array size
+	printf("%d...%d \n", mz.rows, mz.cols);
+	while (i <= mz.rows)//update with array size
 	{
 		free(map[i]);
 		i++;
@@ -55,8 +55,8 @@ int	main(int	argc, char	**argv)
 	f_name = argv[1];
 	//init_map_size(&map_size); ?? refactor this function to update map_size based on rows and colounms
 	init_map(f_name, &map, &map_size);
-	print_map(map);
+	print_map(map, map_size);//only for testing purposes. 
 	
-	free_map(map);//update with array size
+	free_map(map, map_size);//update with array size
 	return (0);
 }

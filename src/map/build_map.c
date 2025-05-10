@@ -12,53 +12,70 @@
 
 #include "so_long.h"
 
+static void read_map(char **new_line, char **line_map, int fd, int *row_count)
+{   
+    char    *temp;
+
+    temp = ft_strdup(*new_line);
+    while (*new_line)
+    {
+        (*row_count) += 1;
+        free(*new_line);
+        *new_line = get_next_line(fd);
+        if (!(*new_line))
+            break;
+        if (*line_map)
+            free(*line_map);
+        *line_map = ft_strjoin(temp, *new_line);
+        free(temp);
+        if(!(*line_map))
+        {
+            free(*new_line);
+            print_error("Error reading map");
+        }
+        temp = ft_strdup(*line_map);
+    }
+    free(temp);
+}
+
 void    build_map(int fd, char ***map, char **f_line, t_map_size *mz)
 {
     char    *line_map;
     char    *new_line;
-    char    *temp;
-    int     col_count;
+    int     row_count;
 
-    //line_map = ft_strdup("");
-    //*f_line  = get_next_line(fd);
-    temp = ft_strdup(*f_line);
-    col_count = 0;
+    row_count = 0;
     new_line = *f_line;
-    mz->cols = 0;
+    mz->cols = ft_strlen(*f_line) - 1; 
     line_map = NULL;
-    while (new_line)
-    {
-        col_count++;
-        free(new_line);
-        new_line = get_next_line(fd);
-        if (!new_line)
-        {
-            break;
-        }
-        if (line_map)
-            free(line_map);
-        line_map = ft_strjoin(temp, new_line);
-        if(!line_map)
-        {
-            free(*f_line);
-            free(new_line);
-            free(temp);
-            print_error("Error reading map");
-        }
-        free(temp);
-        temp = ft_strdup(line_map);
-    }
-    free(temp);
-    *map = ft_split(line_map, '\n');
-    if (!(*map))
-    {
-            free(*f_line);
-            free(new_line);
-            print_error("Error reading map");
-    }
+    read_map(&new_line, &line_map, fd, &row_count);
+    mz->rows = row_count;
+    printf("%s \n", line_map);//remove this when done. 
     if (new_line)
         free(new_line);
+    validate_empty_lines(&line_map);
+    *map = ft_split(line_map, '\n');
+    if (!(*map))
+        print_error("Error reading map");
     if(line_map)
         free(line_map);
+}
+
+void    init_map(char   *f_name, char ***map, t_map_size *mz)
+{
+    int     fd;
+    char    *line;
+    char    *path;
+    
+    line = NULL;
+    validate_file_name(f_name);
+    path = ft_strjoin("./maps/" , f_name);
+    fd = open( path, O_RDONLY);
+    free(path);
+    if (fd == -1)
+        print_error("Invalid file descriptor");
+    validate_f_empty(fd, &line);
+    build_map(fd, map, &line, mz);
+    close(fd);
 
 }
