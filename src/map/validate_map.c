@@ -58,7 +58,22 @@ void    validate_empty_lines(char **map_line)
         free(*map_line);
         print_error("Empty line in map");
     }
+}
 
+void parse_validate(char **map, t_map_size mz, t_map_details md)
+{
+    if(md.is_rect != 1)
+        free_print(map, mz, "Invalid map: Map is not rectangular");
+    if(md.is_enclosed != 1)
+        free_print(map, mz, "Invalid map: Map is not enclosed");
+    if(md.collects == 0)
+        free_print(map, mz, "Invalid map: No collectibles");
+    if(md.exits != 1)
+        free_print(map, mz, "Invalid map: Zero or too many exits");
+    if(md.players != 1)
+        free_print(map, mz, "Invalid map: Zero or too many start positions/players");
+    if(md.invalid != 0)
+        free_print(map, mz, "Invalid map: Invalid elements");
 }
 
 

@@ -33,7 +33,8 @@ SRC = \
 	gnl/gnl.c	\
 	src/map/validate_map.c	\
 	src/map/validate_util.c	\
-	src/map/build_map.c
+	src/map/build_map.c	\
+	src/map/flood_fill.c
 
 
 # Build directories (object files)

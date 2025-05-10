@@ -49,12 +49,13 @@ int	main(int	argc, char	**argv)
 	char	*f_name;
 	char	**map;
 	t_map_size	map_size;
+	t_map_details map_details;
 
 	if(argc != 2)
 		return (write(2, "Error\n", 6), 1);
 	f_name = argv[1];
-	//init_map_size(&map_size); ?? refactor this function to update map_size based on rows and colounms
-	init_map(f_name, &map, &map_size);
+	init_map_details(&map_details);
+	init_map(f_name, &map, &map_size, &map_details);
 	print_map(map, map_size);//only for testing purposes. 
 	
 	free_map(map, map_size);//update with array size

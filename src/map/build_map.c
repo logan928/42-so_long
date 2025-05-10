@@ -12,6 +12,34 @@
 
 #include "so_long.h"
 
+static void parse_map(char **map, t_map_size mz, t_map_details *md)
+{
+    int     row;
+    int     col;
+    int     rect;
+    int     wall;
+
+    row = 0;
+    wall = 1;
+    rect = 1;
+    while (row < mz.rows)
+    {
+        col = 0;
+        rect = rect && (mz.cols == (int)ft_strlen(map[row]));
+        while (col < mz.cols)
+        {
+            if (row == 0 || row == mz.rows - 1 || col == 0 || col == mz.cols - 1)
+                wall = wall && map[row][col] == '1';
+            update_map_details(md, (char)(map[row][col]));
+            col++;//add some logic to get the p position. 
+        }
+        row++;
+    }
+    md->is_enclosed = wall;
+    md->is_rect = rect;
+    parse_validate(map, mz, *md);
+}
+
 static void read_map(char **new_line, char **line_map, int fd, int *row_count)
 {   
     char    *temp;
@@ -61,7 +89,7 @@ void    build_map(int fd, char ***map, char **f_line, t_map_size *mz)
         free(line_map);
 }
 
-void    init_map(char   *f_name, char ***map, t_map_size *mz)
+void    init_map(char   *f_name, char ***map, t_map_size *mz, t_map_details *md)
 {
     int     fd;
     char    *line;
@@ -76,6 +104,7 @@ void    init_map(char   *f_name, char ***map, t_map_size *mz)
         print_error("Invalid file descriptor");
     validate_f_empty(fd, &line);
     build_map(fd, map, &line, mz);
+    parse_map(*map, *mz, md);
     close(fd);
 
 }
