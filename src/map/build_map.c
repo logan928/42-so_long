@@ -12,7 +12,7 @@
 
 #include "so_long.h"
 
-static void parse_map(char **map, t_map_size mz, t_map_details *md)
+void parse_map(char **map, t_map_size mz, t_map_details *md)
 {
     int     row;
     int     col;
@@ -31,13 +31,14 @@ static void parse_map(char **map, t_map_size mz, t_map_details *md)
             if (row == 0 || row == mz.rows - 1 || col == 0 || col == mz.cols - 1)
                 wall = wall && map[row][col] == '1';
             update_map_details(md, (char)(map[row][col]));
-            col++;//add some logic to get the p position. 
+            update_start_pos(md, (char)(map[row][col]), row, col );
+            update_exit_pos(md, (char)(map[row][col]), row, col );
+            col++;
         }
         row++;
     }
     md->is_enclosed = wall;
     md->is_rect = rect;
-    parse_validate(map, mz, *md);
 }
 
 static void read_map(char **new_line, char **line_map, int fd, int *row_count)
@@ -105,6 +106,8 @@ void    init_map(char   *f_name, char ***map, t_map_size *mz, t_map_details *md)
     validate_f_empty(fd, &line);
     build_map(fd, map, &line, mz);
     parse_map(*map, *mz, md);
+    parse_validate(*map, *mz, *md);
+    check_playability(*map, *mz, *md);
     close(fd);
 
 }

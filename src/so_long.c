@@ -30,13 +30,12 @@ void print_map(char **map, t_map_size mz)
 
 }
 
-void free_map(char **map, t_map_size mz)
+void free_map(char **map, int row_count)
 {
 	int	i; 
 
 	i = 0;
-	printf("%d...%d \n", mz.rows, mz.cols);
-	while (i <= mz.rows)//update with array size
+	while (i <= row_count)//update with array size
 	{
 		free(map[i]);
 		i++;
@@ -56,8 +55,7 @@ int	main(int	argc, char	**argv)
 	f_name = argv[1];
 	init_map_details(&map_details);
 	init_map(f_name, &map, &map_size, &map_details);
-	print_map(map, map_size);//only for testing purposes. 
 	
-	free_map(map, map_size);//update with array size
+	free_map(map, map_size.rows);//update with array size
 	return (0);
 }
