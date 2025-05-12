@@ -17,9 +17,12 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <stdio.h>
+#include "mlx.h"
 #include "gnl.h"
 #include "libft.h"
 #include "ft_printf.h"
+
+# define TILE_SIZE 32
 
 typedef struct s_map_size
 {
@@ -44,6 +47,15 @@ typedef struct s_map_details
     int f_count;
 }   t_map_details;
 
+typedef struct s_game
+{
+    void    *mlx;
+    void    *win;
+    int     width;
+    int     height;
+    int     path_count;
+}   t_game;
+
 
 void    init_map_size(t_map_size *mz, int r, int c);
 void    free_map(char **map, int row_count);
@@ -66,7 +78,7 @@ void    parse_validate(char **map, t_map_size mz, t_map_details md);
 void    check_playability(char **map, t_map_size mz, t_map_details md);
 int     check_valid_exit(char **map, int e_row, int e_col, t_map_size mz);
 
-
+void    init_game(t_game *tg, char  **map, t_map_details *md, t_map_size mz);
 
 void print_map(char **map, t_map_size mz); //remove before submission
 

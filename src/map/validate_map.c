@@ -96,7 +96,6 @@ void    check_playability(char **map, t_map_size mz, t_map_details md)
         free_map(map, mz.rows);
         print_error("Invalid map: No path exists to collect and exit");
     }
-    print_map(temp_matrix, mz);
     free_map(temp_matrix, mz.rows - 1);
 }
 

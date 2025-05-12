@@ -79,7 +79,6 @@ void    build_map(int fd, char ***map, char **f_line, t_map_size *mz)
     line_map = NULL;
     read_map(&new_line, &line_map, fd, &row_count);
     mz->rows = row_count;
-    printf("%s \n", line_map);//remove this when done. 
     if (new_line)
         free(new_line);
     validate_empty_lines(&line_map);

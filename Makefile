@@ -35,13 +35,15 @@ SRC = \
 	src/map/validate_util.c	\
 	src/map/build_map.c	\
 	src/map/flood_fill.c	\
-	src/map/update_utils.c
+	src/map/update_utils.c	\
+	src/game/game.c
 
 
 # Build directories (object files)
 DIRS = \
 	build	\
-	build/map
+	build/map	\
+	build/game
 
 
 # Object files in build/

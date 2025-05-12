@@ -49,13 +49,17 @@ int	main(int	argc, char	**argv)
 	char	**map;
 	t_map_size	map_size;
 	t_map_details map_details;
+	t_game			tg;
 
 	if(argc != 2)
 		return (write(2, "Error\n", 6), 1);
 	f_name = argv[1];
 	init_map_details(&map_details);
 	init_map(f_name, &map, &map_size, &map_details);
-	
+	print_map(map, map_size);//remove after
+
+	init_game(&tg, map, &map_details, map_size);
+
 	free_map(map, map_size.rows);//update with array size
 	return (0);
 }
