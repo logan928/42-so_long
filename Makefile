@@ -36,7 +36,8 @@ SRC = \
 	src/map/build_map.c	\
 	src/map/flood_fill.c	\
 	src/map/update_utils.c	\
-	src/game/game.c
+	src/game/game.c	\
+	src/game/image_manager.c
 
 
 # Build directories (object files)

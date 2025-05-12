@@ -22,7 +22,40 @@
 #include "libft.h"
 #include "ft_printf.h"
 
-# define TILE_SIZE 32
+# define TILE_SIZE      32
+# define WALL_PATH		"assets/Walls/wall.xpm" 
+# define FLOOR_PATH		"assets/Walls/black.xpm" 
+# define COLLECT_PATH	"assets/collectibles/pacdot_food.xpm"
+# define EXIT_PATH	    "assets/Portal/portal.xpm"
+# define PLAYER_PATH_R	"assets/pac-man/pac_semi_right.xpm"
+# define PLAYER_PATH_L	"assets/pac-man/pac_semi_left.xpm"
+# define PLAYER_PATH_U	"assets/pac-man/pac_semi_up.xpm"
+# define PLAYER_PATH_D	"assets/pac-man/pac_semi_down.xpm"
+
+enum e_direction
+{
+	left = 1,
+	right = 2,
+	up = 3,
+	down = 4,
+};
+
+enum e_game_state
+{
+	started = 0,
+	initiated_mlx = 1,
+	initiated_window = 2,
+	initiated_images = 3,
+    redndered = 4,
+    aborted = 5,
+    ended = 6,
+};
+
+typedef struct s_point
+{
+	int	x;
+	int	y;
+}	t_point;
 
 typedef struct s_map_size
 {
@@ -47,13 +80,31 @@ typedef struct s_map_details
     int f_count;
 }   t_map_details;
 
+typedef struct  s_image
+{
+    void    *img_ptr;
+    int     img_size; 
+}   t_image;
+
 typedef struct s_game
 {
+    char    **map;
+    t_map_size  mz;
+    t_map_details   *md;
     void    *mlx;
     void    *win;
     int     width;
     int     height;
     int     path_count;
+    int     game_state;
+    t_image player_up;
+    t_image player_down;
+    t_image player_left;
+    t_image player_right;
+    t_image wall;
+    t_image floor;
+    t_image coin;
+    t_image exit;
 }   t_game;
 
 
@@ -78,7 +129,10 @@ void    parse_validate(char **map, t_map_size mz, t_map_details md);
 void    check_playability(char **map, t_map_size mz, t_map_details md);
 int     check_valid_exit(char **map, int e_row, int e_col, t_map_size mz);
 
-void    init_game(t_game *tg, char  **map, t_map_details *md, t_map_size mz);
+void    init_game(t_game *tg, char  ***map, t_map_details *md, t_map_size mz);
+void	init_images(t_game	*tg);
+void    free_images(void *mlx, t_game *tg, int img_no);
+void    end_game(t_game *tg, int game_state);
 
 void print_map(char **map, t_map_size mz); //remove before submission
 
