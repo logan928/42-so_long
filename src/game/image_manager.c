@@ -12,13 +12,12 @@
 
 #include "so_long.h"
 
-void free_images(void *mlx, t_game *tg, int img_no)
+void	free_images(void *mlx, t_game *tg, int img_no)
 {
-	printf("image error: %d \n", img_no);
 	if (img_no == 1)
 	{
 		mlx_destroy_image(mlx, tg->wall.img_ptr);
-		return;
+		return ;
 	}
 	else if (img_no == 2)
 		mlx_destroy_image(mlx, tg->floor.img_ptr);
@@ -42,13 +41,13 @@ static t_image	get_tile(void *mlx, t_game *tg, char *path, int img_no)
 	t_image	img;
 
 	img.img_size = TILE_SIZE;
-	printf("..%s....%d\n", path, img.img_size);
-	img.img_ptr = mlx_xpm_file_to_image(mlx, path, &img.img_size, &img.img_size);
-    if(!img.img_ptr)
+	img.img_ptr = mlx_xpm_file_to_image(mlx, path, &img.img_size, \
+		&img.img_size);
+	if (!img.img_ptr)
 	{
 		free_images(mlx, tg, img_no - 1);
 		end_game(tg, tg->game_state);
-	} 
+	}
 	return (img);
 }
 
@@ -58,11 +57,9 @@ void	init_images(t_game	*tg)
 	tg->floor = get_tile(tg->mlx, tg, FLOOR_PATH, 2);
 	tg->coin = get_tile(tg->mlx, tg, COLLECT_PATH, 3);
 	tg->exit = get_tile(tg->mlx, tg, EXIT_PATH, 4);
-    tg->player_up = get_tile(tg->mlx, tg, PLAYER_PATH_U, 5);
+	tg->player_up = get_tile(tg->mlx, tg, PLAYER_PATH_U, 5);
 	tg->player_down = get_tile(tg->mlx, tg, PLAYER_PATH_D, 6);
 	tg->player_left = get_tile(tg->mlx, tg, PLAYER_PATH_L, 7);
 	tg->player_right = get_tile(tg->mlx, tg, PLAYER_PATH_R, 8);
-	
+	tg->game_state = initiated_images;
 }
-
-

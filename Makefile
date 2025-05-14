@@ -36,8 +36,12 @@ SRC = \
 	src/map/build_map.c	\
 	src/map/flood_fill.c	\
 	src/map/update_utils.c	\
+	src/map/render_map.c	\
 	src/game/game.c	\
-	src/game/image_manager.c
+	src/game/image_manager.c	\
+	src/game/player_moves.c	\
+	src/game/game_utils.c	\
+	src/game/player_utils.c
 
 
 # Build directories (object files)

@@ -12,16 +12,16 @@
 
 #include "so_long.h"
 
-void    print_error(char    *msg)
+void	print_error(char *msg)
 {
-    ft_putstr_fd("Error\n", 2);
-    ft_putstr_fd(msg, 2);
-    ft_putstr_fd("\n", 2);
-    exit(EXIT_FAILURE);
+	ft_putstr_fd("Error\n", 2);
+	ft_putstr_fd(msg, 2);
+	ft_putstr_fd("\n", 2);
+	exit(EXIT_FAILURE);
 }
 
-void    free_print(char **map, t_map_size mz, char *msg)
+void	free_print(char **map, t_map_size mz, char *msg)
 {
-    free_map(map, mz.rows);
-    print_error(msg);
+	free_map(map, mz.rows);
+	print_error(msg);
 }

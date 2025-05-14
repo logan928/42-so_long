@@ -10,32 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"so_long.h"
+#include "so_long.h"
 
-void print_map(char **map, t_map_size mz)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	for (i = 0; i < mz.rows; i++)
-	{
-		for (j = 0; j < mz.cols; j++)
-			printf("%c ", map[i][j]);
-		
-		printf("\n");
-	}
-	
-
-}
-
-void free_map(char **map, int row_count)
+void	free_map(char **map, int row_count)
 {
 	int	i; 
 
 	i = 0;
-	while (i <= row_count)//update with array size
+	while (i <= row_count)
 	{
 		free(map[i]);
 		i++;
@@ -43,27 +25,24 @@ void free_map(char **map, int row_count)
 	free(map);
 }
 
-int	main(int	argc, char	**argv)
+int	main(int argc, char	**argv)
 {
 	char			*f_name;
 	char			**map;
 	t_map_size		map_size;
-	t_map_details 	map_details;
+	t_map_details	map_details;
 	t_game			tg;
 
-	if(argc != 2)
+	if (argc != 2)
 		return (write(2, "Error\n", 6), 1);
 	f_name = argv[1];
 	init_map_details(&map_details);
 	init_map(f_name, &map, &map_size, &map_details);
-	print_map(map, map_size);//remove after
 	init_game(&tg, &map, &map_details, map_size);
 	init_images(&tg);
-
-
-	end_game(&tg, 3);
+	render_game_area(&tg);
+	mlx_hook(tg.win, 17, 0 << 1, handle_destroy, &tg);
+	mlx_hook(tg.win, 3, 1L << 1, handle_keyrelease, &tg);
 	mlx_loop(tg.mlx);
-	free(tg.mlx);
-	
 	return (0);
 }
